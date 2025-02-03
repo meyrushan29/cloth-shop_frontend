@@ -8,11 +8,13 @@ const BestSeller = () => {
   const [bestSeller, setBestSeller] = useState([]);
 
   useEffect(() => {
-    const bestProduct = products.filter((item) => item.bestSeller);
-    
-    // Debugging the filtered data
-    console.log('Best Seller Products:', bestProduct);
-    setBestSeller(bestProduct.slice(0, 5));
+    if (products?.length > 0) { 
+      const bestProduct = products.filter((item) => item.bestSeller === true);
+      
+      // Debugging the filtered data
+      console.log('Best Seller Products:', bestProduct);
+      setBestSeller(bestProduct.slice(0, 5));
+    }
   }, [products]); // Add products to the dependency array
   
 
@@ -25,21 +27,20 @@ const BestSeller = () => {
         </p>
       </div>
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
-  {bestSeller.length > 0 ? (
-    bestSeller.map((item, index) => (
-      <ProductItem 
-        key={index} 
-        id={item._id} 
-        name={item.name} 
-        image={item.image} 
-        price={item.price} 
-      />
-    ))
-  ) : (
-    <p>No best seller products found.</p>
-  )}
-</div>
-
+        {bestSeller.length > 0 ? (
+          bestSeller.map((item) => (
+            <ProductItem 
+              key={item._id} // Use _id instead of index
+              id={item._id} 
+              name={item.name} 
+              image={item.image} 
+              price={item.price} 
+            />
+          ))
+        ) : (
+          <p className="text-center col-span-full text-gray-500">No best seller products found.</p>
+        )}
+      </div>
     </div>
   );
 };

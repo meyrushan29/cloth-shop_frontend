@@ -5,11 +5,12 @@ import Title from '../components/Title';
 import ProductItem from './ProductItem';
 
 const RelatedProduct = ({ category, subCategory }) => {
+
     const { products } = useContext(ShopContext);
     const [related, setRelated] = useState([]);
 
     useEffect(() => {
-        if (products.length > 0) {
+        if (products.length > 0) { 
             let productscopy = products.slice();
 
             // Filter by category
@@ -20,7 +21,7 @@ const RelatedProduct = ({ category, subCategory }) => {
 
             setRelated(productscopy.slice(0, 5));
         }
-    }, [products, category, subCategory]); // Ensure reactivity
+    },  [products, category, subCategory]); // Ensure reactivity
 
     return (
         <div className='my-24'>
